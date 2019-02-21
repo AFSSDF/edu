@@ -23,22 +23,22 @@ public class Course implements Serializable {
     /**
      * 班级id
      */
-    private Long clazz_id;
+    private Long clazzId;
 
     /**
      * 教室id
      */
-    private Long room_id;
+    private Long roomId;
 
     /**
      * 课程id
      */
-    private Long curriculum_id;
+    private Long curriculumId;
 
     /**
      * 职员id
      */
-    private Long teacher_id;
+    private Long teacherId;
 
     /**
      * 上课日期
@@ -50,9 +50,9 @@ public class Course implements Serializable {
      */
     private String period;
 
-    private Date gmt_create;
+    private Date gmtCreate;
 
-    private Date gmt_modified;
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -61,34 +61,39 @@ public class Course implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getClazz_id() {
-        return clazz_id;
+
+    public Long getClazzId() {
+        return clazzId;
     }
 
-    public void setClazz_id(Long clazz_id) {
-        this.clazz_id = clazz_id;
-    }
-    public Long getRoom_id() {
-        return room_id;
+    public void setClazzId(Long clazzId) {
+        this.clazzId = clazzId;
     }
 
-    public void setRoom_id(Long room_id) {
-        this.room_id = room_id;
-    }
-    public Long getCurriculum_id() {
-        return curriculum_id;
+    public Long getRoomId() {
+        return roomId;
     }
 
-    public void setCurriculum_id(Long curriculum_id) {
-        this.curriculum_id = curriculum_id;
-    }
-    public Long getTeacher_id() {
-        return teacher_id;
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
-    public void setTeacher_id(Long teacher_id) {
-        this.teacher_id = teacher_id;
+    public Long getCurriculumId() {
+        return curriculumId;
     }
+
+    public void setCurriculumId(Long curriculumId) {
+        this.curriculumId = curriculumId;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
     public Date getBegin() {
         return begin;
     }
@@ -96,6 +101,7 @@ public class Course implements Serializable {
     public void setBegin(Date begin) {
         this.begin = begin;
     }
+
     public String getPeriod() {
         return period;
     }
@@ -103,33 +109,35 @@ public class Course implements Serializable {
     public void setPeriod(String period) {
         this.period = period;
     }
-    public Date getGmt_create() {
-        return gmt_create;
+
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmt_create(Date gmt_create) {
-        this.gmt_create = gmt_create;
-    }
-    public Date getGmt_modified() {
-        return gmt_modified;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public void setGmt_modified(Date gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     @Override
     public String toString() {
         return "Course{" +
-        "id=" + id +
-        ", clazz_id=" + clazz_id +
-        ", room_id=" + room_id +
-        ", curriculum_id=" + curriculum_id +
-        ", teacher_id=" + teacher_id +
-        ", begin=" + begin +
-        ", period=" + period +
-        ", gmt_create=" + gmt_create +
-        ", gmt_modified=" + gmt_modified +
-        "}";
+                "id=" + id +
+                ", clazzId=" + clazzId +
+                ", roomId=" + roomId +
+                ", curriculumId=" + curriculumId +
+                ", teacherId=" + teacherId +
+                ", begin=" + begin +
+                ", period='" + period + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                '}';
     }
 }

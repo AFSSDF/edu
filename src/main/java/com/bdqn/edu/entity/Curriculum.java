@@ -35,9 +35,9 @@ public class Curriculum implements Serializable {
      */
     private String chapter;
 
-    private Date gmt_create;
+    private Date gmtCreate;
 
-    private Date gmt_modified;
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -46,6 +46,7 @@ public class Curriculum implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getStage() {
         return stage;
     }
@@ -53,6 +54,7 @@ public class Curriculum implements Serializable {
     public void setStage(String stage) {
         this.stage = stage;
     }
+
     public String getName() {
         return name;
     }
@@ -60,6 +62,7 @@ public class Curriculum implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getChapter() {
         return chapter;
     }
@@ -67,30 +70,32 @@ public class Curriculum implements Serializable {
     public void setChapter(String chapter) {
         this.chapter = chapter;
     }
-    public Date getGmt_create() {
-        return gmt_create;
+
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmt_create(Date gmt_create) {
-        this.gmt_create = gmt_create;
-    }
-    public Date getGmt_modified() {
-        return gmt_modified;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public void setGmt_modified(Date gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     @Override
     public String toString() {
         return "Curriculum{" +
-        "id=" + id +
-        ", stage=" + stage +
-        ", name=" + name +
-        ", chapter=" + chapter +
-        ", gmt_create=" + gmt_create +
-        ", gmt_modified=" + gmt_modified +
-        "}";
+                "id=" + id +
+                ", stage='" + stage + '\'' +
+                ", name='" + name + '\'' +
+                ", chapter='" + chapter + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                '}';
     }
 }

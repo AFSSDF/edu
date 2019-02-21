@@ -1,4 +1,4 @@
-package com.bdqn.edu.web;
+package com.bdqn.edu.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 职员信息 前端控制器
+ * 排课信息 前端控制器
  * </p>
  *
  * @author Li
  * @since 2019-02-19
  */
 @Controller
-@RequestMapping("/teacher")
-public class TeacherController {
+@RequestMapping("/course")
+public class CourseController {
 
 }

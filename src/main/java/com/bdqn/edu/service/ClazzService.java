@@ -1,6 +1,9 @@
 package com.bdqn.edu.service;
 
 import com.bdqn.edu.entity.Clazz;
+import com.bdqn.edu.entity.Clazz;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,5 +14,15 @@ import com.bdqn.edu.entity.Clazz;
  * @since 2019-02-19
  */
 public interface ClazzService {
+    int saveClazz(Clazz clazz);
 
+    int modifyClazz(Clazz clazz);
+
+    int removeClazz(Long id);
+
+    List<Clazz> findClazzList();
+
+    Integer countClazz();
+
+    Clazz findClazzById(Long id);
 }

@@ -10,7 +10,7 @@ stage varchar(4) comment "阶段",
 count int not null comment "人数",
 gmt_create datetime,
 gmt_modified datetime
-)comment='班级信息';
+)comment='班级信息' default charset=utf8;
 
 create table room
 (
@@ -18,17 +18,17 @@ id bigint unsigned primary key auto_increment comment "id",
 name varchar(20) not null comment "教室名称",
 gmt_create datetime,
 gmt_modified datetime
-)comment='教室信息';
+)comment='教室信息' default charset=utf8;
 
 create table teacher
 (
 id bigint unsigned primary key auto_increment comment "id",
 name varchar(20) not null comment "职员姓名",
 email varchar(50) not null comment "邮箱",
-is_exist bit not null comment "是否在职",
+is_delete bit not null comment "是否在职",
 gmt_create datetime,
 gmt_modified datetime
-)comment='职员信息';
+)comment='职员信息' default charset=utf8;
 
 create table curriculum
 (
@@ -38,7 +38,7 @@ name varchar(20) not null comment "名称",
 chapter varchar(50) not null comment "章节",
 gmt_create datetime,
 gmt_modified datetime
-)comment='课程信息';
+)comment='课程信息' default charset=utf8;
 
 create table course
 (
@@ -51,6 +51,6 @@ begin datetime not null comment "上课日期",
 period varchar(4) not null comment "上课时段",
 gmt_create datetime,
 gmt_modified datetime
-)comment='排课信息';
+)comment='排课信息' default charset=utf8;
 
 alter table room add is_projector bit not null comment "是否有投影仪" after name;

@@ -28,11 +28,11 @@ public class Room implements Serializable {
     /**
      * 是否有投影仪
      */
-    private Boolean is_projector;
+    private Boolean isProjector;
 
-    private Date gmt_create;
+    private Date gmtCreate;
 
-    private Date gmt_modified;
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -41,6 +41,7 @@ public class Room implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -48,36 +49,39 @@ public class Room implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public Boolean getIs_projector() {
-        return is_projector;
+
+    public Boolean getIsProjector() {
+        return isProjector;
     }
 
-    public void setIs_projector(Boolean is_projector) {
-        this.is_projector = is_projector;
-    }
-    public Date getGmt_create() {
-        return gmt_create;
+    public void setIsProjector(Boolean isProjector) {
+        this.isProjector = isProjector;
     }
 
-    public void setGmt_create(Date gmt_create) {
-        this.gmt_create = gmt_create;
-    }
-    public Date getGmt_modified() {
-        return gmt_modified;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmt_modified(Date gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     @Override
     public String toString() {
         return "Room{" +
-        "id=" + id +
-        ", name=" + name +
-        ", is_projector=" + is_projector +
-        ", gmt_create=" + gmt_create +
-        ", gmt_modified=" + gmt_modified +
-        "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isProjector=" + isProjector +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                '}';
     }
 }

@@ -35,9 +35,9 @@ public class Clazz implements Serializable {
      */
     private Integer count;
 
-    private Date gmt_create;
+    private Date gmtCreate;
 
-    private Date gmt_modified;
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -46,6 +46,7 @@ public class Clazz implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -53,6 +54,7 @@ public class Clazz implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getStage() {
         return stage;
     }
@@ -60,6 +62,7 @@ public class Clazz implements Serializable {
     public void setStage(String stage) {
         this.stage = stage;
     }
+
     public Integer getCount() {
         return count;
     }
@@ -67,30 +70,32 @@ public class Clazz implements Serializable {
     public void setCount(Integer count) {
         this.count = count;
     }
-    public Date getGmt_create() {
-        return gmt_create;
+
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmt_create(Date gmt_create) {
-        this.gmt_create = gmt_create;
-    }
-    public Date getGmt_modified() {
-        return gmt_modified;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public void setGmt_modified(Date gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     @Override
     public String toString() {
         return "Clazz{" +
-        "id=" + id +
-        ", name=" + name +
-        ", stage=" + stage +
-        ", count=" + count +
-        ", gmt_create=" + gmt_create +
-        ", gmt_modified=" + gmt_modified +
-        "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stage='" + stage + '\'' +
+                ", count=" + count +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                '}';
     }
 }

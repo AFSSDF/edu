@@ -1,9 +1,12 @@
 package com.bdqn.edu.service.impl;
 
 import com.bdqn.edu.entity.Curriculum;
-import com.bdqn.edu.mapper.CurriculumDao;
+import com.bdqn.edu.mapper.CurriculumMapper;
 import com.bdqn.edu.service.CurriculumService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +19,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class CurriculumServiceImpl implements CurriculumService {
 
+    @Autowired
+    private CurriculumMapper curriculumMapper;
+
+    @Override
+    public int saveCurriculum(Curriculum curriculum) {
+        return curriculumMapper.insertCurriculum(curriculum);
+    }
+
+    @Override
+    public int modifyCurriculum(Curriculum curriculum) {
+        return curriculumMapper.updateCurriculum(curriculum);
+    }
+
+    @Override
+    public int removeCurriculum(Long id) {
+        return curriculumMapper.deleteCurriculum(id);
+    }
+
+    @Override
+    public List<Curriculum> findCurriculumList() {
+        return curriculumMapper.listCurriculum();
+    }
+
+    @Override
+    public Integer countCurriculum() {
+        return curriculumMapper.countCurriculum();
+    }
+
+    @Override
+    public Curriculum findCurriculumById(Long id) {
+        return curriculumMapper.selectCurriculumById(id);
+    }
 }

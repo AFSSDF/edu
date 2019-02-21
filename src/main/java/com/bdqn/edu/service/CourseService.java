@@ -1,6 +1,9 @@
 package com.bdqn.edu.service;
 
 import com.bdqn.edu.entity.Course;
+import com.bdqn.edu.entity.Course;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,5 +14,15 @@ import com.bdqn.edu.entity.Course;
  * @since 2019-02-19
  */
 public interface CourseService {
+    int saveCourse(Course course);
 
+    int modifyCourse(Course course);
+
+    int removeCourse(Long id);
+
+    List<Course> findCourseList();
+
+    Integer countCourse();
+
+    Course findCourseById(Long id);
 }
