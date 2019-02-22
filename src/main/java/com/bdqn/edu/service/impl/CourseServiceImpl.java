@@ -1,5 +1,6 @@
 package com.bdqn.edu.service.impl;
 
+import com.bdqn.edu.condition.CourseCondition;
 import com.bdqn.edu.entity.Course;
 import com.bdqn.edu.mapper.CourseMapper;
 import com.bdqn.edu.service.CourseService;
@@ -49,5 +50,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course findCourseById(Long id) {
         return courseMapper.selectCourseById(id);
+    }
+
+    @Override
+    public List<Course> findCourseListByCondition(CourseCondition courseCondition) {
+        return courseMapper.listCourseByCondition(courseCondition);
     }
 }

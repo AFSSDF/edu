@@ -35,6 +35,11 @@ public class Curriculum implements Serializable {
      */
     private String chapter;
 
+    /**
+     * 课时
+     */
+    private String hour;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -71,6 +76,14 @@ public class Curriculum implements Serializable {
         this.chapter = chapter;
     }
 
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -94,6 +107,7 @@ public class Curriculum implements Serializable {
                 ", stage='" + stage + '\'' +
                 ", name='" + name + '\'' +
                 ", chapter='" + chapter + '\'' +
+                ", hour='" + hour + '\'' +
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +
                 '}';

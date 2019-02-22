@@ -1,5 +1,6 @@
 package com.bdqn.edu.service;
 
+import com.bdqn.edu.condition.CourseCondition;
 import com.bdqn.edu.entity.Course;
 import com.bdqn.edu.entity.Course;
 
@@ -25,4 +26,6 @@ public interface CourseService {
     Integer countCourse();
 
     Course findCourseById(Long id);
+
+    List<Course> findCourseListByCondition(CourseCondition courseCondition);
 }

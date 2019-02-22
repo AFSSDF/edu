@@ -1,5 +1,6 @@
 package com.bdqn.edu.service.impl;
 
+import com.bdqn.edu.condition.ClazzCondition;
 import com.bdqn.edu.entity.Clazz;
 import com.bdqn.edu.mapper.ClazzMapper;
 import com.bdqn.edu.service.ClazzService;
@@ -50,5 +51,10 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public Clazz findClazzById(Long id) {
         return clazzMapper.selectClazzById(id);
+    }
+
+    @Override
+    public List<Clazz> findClazzListByCondition(ClazzCondition clazzCondition) {
+        return clazzMapper.listClazzByCondition(clazzCondition);
     }
 }

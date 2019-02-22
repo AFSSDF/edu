@@ -1,5 +1,6 @@
 package com.bdqn.edu.service.impl;
 
+import com.bdqn.edu.condition.TeacherCondition;
 import com.bdqn.edu.entity.Teacher;
 import com.bdqn.edu.mapper.ClazzMapper;
 import com.bdqn.edu.mapper.TeacherMapper;
@@ -51,5 +52,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher findTeacherById(Long id) {
         return teacherMapper.selectTeacherById(id);
+    }
+
+    @Override
+    public List<Teacher> findTeacherListByCondition(TeacherCondition teacherCondition) {
+        return teacherMapper.listTeacherByCondition(teacherCondition);
     }
 }

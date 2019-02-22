@@ -1,5 +1,6 @@
 package com.bdqn.edu.service;
 
+import com.bdqn.edu.condition.ClazzCondition;
 import com.bdqn.edu.entity.Clazz;
 import com.bdqn.edu.entity.Clazz;
 
@@ -25,4 +26,6 @@ public interface ClazzService {
     Integer countClazz();
 
     Clazz findClazzById(Long id);
+
+    List<Clazz> findClazzListByCondition(ClazzCondition clazzCondition);
 }

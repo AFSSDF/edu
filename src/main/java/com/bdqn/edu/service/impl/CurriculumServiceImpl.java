@@ -1,5 +1,6 @@
 package com.bdqn.edu.service.impl;
 
+import com.bdqn.edu.condition.CurriculumCondition;
 import com.bdqn.edu.entity.Curriculum;
 import com.bdqn.edu.mapper.CurriculumMapper;
 import com.bdqn.edu.service.CurriculumService;
@@ -50,5 +51,10 @@ public class CurriculumServiceImpl implements CurriculumService {
     @Override
     public Curriculum findCurriculumById(Long id) {
         return curriculumMapper.selectCurriculumById(id);
+    }
+
+    @Override
+    public List<Curriculum> findCurriculumListByCondition(CurriculumCondition curriculumCondition) {
+        return curriculumMapper.listCurriculumByCondition(curriculumCondition);
     }
 }

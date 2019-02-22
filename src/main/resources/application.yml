@@ -33,7 +33,6 @@ spring:
   # JPA
   jpa:
     show-sql: true
-
 # mybatis 配置
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

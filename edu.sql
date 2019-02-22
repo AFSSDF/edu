@@ -54,3 +54,4 @@ gmt_modified datetime
 )comment='排课信息' default charset=utf8;
 
 alter table room add is_projector bit not null comment "是否有投影仪" after name;
+alter table curriculum add hour int not null comment "课时" after chapter;

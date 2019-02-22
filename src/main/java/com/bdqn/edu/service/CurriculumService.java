@@ -1,5 +1,6 @@
 package com.bdqn.edu.service;
 
+import com.bdqn.edu.condition.CurriculumCondition;
 import com.bdqn.edu.entity.Curriculum;
 import com.bdqn.edu.entity.Curriculum;
 
@@ -25,4 +26,6 @@ public interface CurriculumService {
     Integer countCurriculum();
 
     Curriculum findCurriculumById(Long id);
+
+    List<Curriculum> findCurriculumListByCondition(CurriculumCondition curriculumCondition);
 }

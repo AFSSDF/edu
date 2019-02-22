@@ -1,5 +1,6 @@
 package com.bdqn.edu.service;
 
+import com.bdqn.edu.condition.TeacherCondition;
 import com.bdqn.edu.entity.Teacher;
 
 import java.util.List;
@@ -26,4 +27,5 @@ public interface TeacherService {
 
     Teacher findTeacherById(Long id);
 
+    List<Teacher> findTeacherListByCondition(TeacherCondition teacherCondition);
 }
