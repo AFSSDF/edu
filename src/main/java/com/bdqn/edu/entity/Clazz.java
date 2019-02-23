@@ -2,6 +2,7 @@ package com.bdqn.edu.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * <p>
@@ -97,5 +98,18 @@ public class Clazz implements Serializable {
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clazz clazz = (Clazz) o;
+        return Objects.equals(id, clazz.id) &&
+                Objects.equals(name, clazz.name) &&
+                Objects.equals(stage, clazz.stage) &&
+                Objects.equals(count, clazz.count) &&
+                Objects.equals(gmtCreate, clazz.gmtCreate) &&
+                Objects.equals(gmtModified, clazz.gmtModified);
     }
 }

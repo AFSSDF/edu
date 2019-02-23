@@ -126,6 +126,11 @@ public class CourseResultMap implements Serializable {
         this.gmtModified = gmtModified;
     }
 
+
+    public String getClazzName() {
+        return clazz != null ? clazz.getName() : "";
+    }
+
     @Override
     public String toString() {
         return "Course{" +

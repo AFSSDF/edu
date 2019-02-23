@@ -3,6 +3,7 @@ package com.bdqn.edu.service;
 import com.bdqn.edu.condition.CourseCondition;
 import com.bdqn.edu.entity.Course;
 import com.bdqn.edu.entity.Course;
+import com.bdqn.edu.entity.CourseResultMap;
 
 import java.util.List;
 
@@ -27,5 +28,5 @@ public interface CourseService {
 
     Course findCourseById(Long id);
 
-    List<Course> findCourseListByCondition(CourseCondition courseCondition);
+    List<CourseResultMap> findCourseListByCondition(CourseCondition courseCondition);
 }

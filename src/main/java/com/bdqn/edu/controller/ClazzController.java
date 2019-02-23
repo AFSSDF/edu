@@ -83,8 +83,8 @@ public class ClazzController {
 
     @ResponseBody
     @GetMapping("/clazzList")
-    public Object clazzList(){
-        return clazzService.findClazzList();
+    public Object clazzList(ClazzCondition clazzCondition){
+        return clazzService.findClazzListByCondition(clazzCondition);
     }
 }
 

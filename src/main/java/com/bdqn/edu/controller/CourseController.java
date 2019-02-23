@@ -1,17 +1,28 @@
 package com.bdqn.edu.controller;
 
 
+import com.bdqn.edu.condition.ClazzCondition;
 import com.bdqn.edu.condition.CourseCondition;
+import com.bdqn.edu.entity.Clazz;
 import com.bdqn.edu.entity.Course;
-import com.bdqn.edu.entity.Teacher;
+import com.bdqn.edu.entity.CourseResultMap;
 import com.bdqn.edu.service.*;
+import com.bdqn.edu.util.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -48,18 +59,18 @@ public class CourseController {
     @GetMapping("/course-add.html")
     public String toAddCourseView(Model model, String msg, @ModelAttribute Course course) {
         model.addAttribute("opt", 1);
-        model.addAttribute("teacherList",teacherService.findTeacherList());
-        model.addAttribute("roomList",roomService.findRoomList());
-        model.addAttribute("clazzList",clazzService.findClazzList());
+        model.addAttribute("teacherList", teacherService.findTeacherList());
+        model.addAttribute("roomList", roomService.findRoomList());
+        model.addAttribute("clazzList", clazzService.findClazzList());
         return "course-edit";
     }
 
     @GetMapping("/course-modify.html")
     public String toModifyCourseView(Model model, String msg, Long id) {
         model.addAttribute("opt", 0);
-        model.addAttribute("teacherList",teacherService.findTeacherList());
-        model.addAttribute("roomList",roomService.findRoomList());
-        model.addAttribute("clazzList",clazzService.findClazzList());
+        model.addAttribute("teacherList", teacherService.findTeacherList());
+        model.addAttribute("roomList", roomService.findRoomList());
+        model.addAttribute("clazzList", clazzService.findClazzList());
         model.addAttribute("course", courseService.findCourseById(id));
         return "course-edit";
     }
@@ -74,9 +85,9 @@ public class CourseController {
         } else {
             msg = "添加失败";
         }
-        model.addAttribute("teacherList",teacherService.findTeacherList());
-        model.addAttribute("roomList",roomService.findRoomList());
-        model.addAttribute("clazzList",clazzService.findClazzList());
+        model.addAttribute("teacherList", teacherService.findTeacherList());
+        model.addAttribute("roomList", roomService.findRoomList());
+        model.addAttribute("clazzList", clazzService.findClazzList());
         model.addAttribute("msg", msg);
         return "course-edit";
     }
@@ -91,9 +102,9 @@ public class CourseController {
         } else {
             msg = "修改失败";
         }
-        model.addAttribute("teacherList",teacherService.findTeacherList());
-        model.addAttribute("roomList",roomService.findRoomList());
-        model.addAttribute("clazzList",clazzService.findClazzList());
+        model.addAttribute("teacherList", teacherService.findTeacherList());
+        model.addAttribute("roomList", roomService.findRoomList());
+        model.addAttribute("clazzList", clazzService.findClazzList());
         model.addAttribute("msg", msg);
         return "course-edit";
     }
@@ -103,4 +114,24 @@ public class CourseController {
     public Object deleteCourse(Long id) {
         return courseService.removeCourse(id) == 1 ? "" : new ArrayList();
     }
+
+    @RequestMapping("/downExcel")
+    public void downExcel(HttpServletResponse response, Date begin, Date end) throws IOException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String sheetName = "Sheet1";
+        String titleName = "ACCP(BENET/BTEST/学士后)中心班级课程表(" + dateFormat.format(begin) + "--" + dateFormat.format(end) + ")";
+
+        CourseCondition courseCondition = new CourseCondition();
+        courseCondition.setBegin(begin);
+        courseCondition.setEnd(end);
+        List<CourseResultMap> courseList = courseService.findCourseListByCondition(courseCondition);
+
+        ClazzCondition clazzCondition=new ClazzCondition();
+        clazzCondition.setStage("S1,S2,Y2");
+        List<Clazz> clazzList = clazzService.findClazzListByCondition(clazzCondition);
+
+        String fileName = "班级课程表";
+        ExcelUtil.exportExcel(response, fileName, sheetName, titleName, begin, end, clazzList, courseList);
+    }
+
 }

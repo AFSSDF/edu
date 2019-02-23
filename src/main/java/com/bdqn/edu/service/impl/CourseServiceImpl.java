@@ -2,6 +2,7 @@ package com.bdqn.edu.service.impl;
 
 import com.bdqn.edu.condition.CourseCondition;
 import com.bdqn.edu.entity.Course;
+import com.bdqn.edu.entity.CourseResultMap;
 import com.bdqn.edu.mapper.CourseMapper;
 import com.bdqn.edu.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findCourseListByCondition(CourseCondition courseCondition) {
+    public List<CourseResultMap> findCourseListByCondition(CourseCondition courseCondition) {
         return courseMapper.listCourseByCondition(courseCondition);
     }
 }
