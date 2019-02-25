@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.edu.mapper.ClazzMapper">
+    <insert id="insertClazz" parameterType="clazz">
+        insert into clazz(name,stage,count,gmt_create) values (#{name},#{stage},#{count},now());
+    </insert>
+
+    <update id="updateClazz" parameterType="clazz">
+        update clazz set name=#{name},stage=#{stage},count=#{count},gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteClazz" parameterType="java.lang.Long">
+        delete from clazz where id=#{id}
+    </delete>
+
+    <select id="listClazz" resultType="Clazz">
+        select * from clazz;
+    </select>
+
+    <select id="countClazz" resultType="java.lang.Integer">
+        select count(1) from clazz;
+    </select>
+
+    <select id="selectClazzById" resultType="Clazz" parameterType="java.lang.Long">
+        select * from clazz where id=#{id}
+    </select>
+
+    <select id="listClazzByCondition" parameterType="com.bdqn.edu.condition.ClazzCondition" resultType="clazz">
+        select * from clazz
+        <where>
+            <if test="stage != null and stage != ''">and stage in
+                <foreach collection="stage.split(',')" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where> order by name desc
+    </select>
+</mapper>

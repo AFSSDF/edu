@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.edu.mapper.CurriculumMapper">
+    <insert id="insertCurriculum" parameterType="curriculum">
+        insert into curriculum(stage,name,chapter,hour,gmt_create) values (#{stage},#{name},#{chapter},#{hour},now());
+    </insert>
+
+    <update id="updateCurriculum" parameterType="curriculum">
+        update curriculum set stage=#{stage},name=#{name},chapter=#{chapter},hour=#{hour},gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteCurriculum" parameterType="java.lang.Long">
+        delete from curriculum where id=#{id}
+    </delete>
+
+    <select id="listCurriculum" resultType="curriculum">
+        select * from curriculum;
+    </select>
+
+    <select id="countCurriculum" resultType="java.lang.Integer">
+        select count(1) from curriculum;
+    </select>
+
+    <select id="selectCurriculumById" resultType="curriculum" parameterType="java.lang.Long">
+        select * from curriculum where id=#{id}
+    </select>
+
+    <select id="listCurriculumByCondition" parameterType="com.bdqn.edu.condition.CurriculumCondition"
+            resultType="curriculum">
+        select
+        <choose>
+            <when test="model != null and model != ''">distinct ${model}</when>
+            <otherwise>*</otherwise>
+        </choose>
+        from curriculum
+        <where>
+            <if test="stage != null and stage != ''">and stage = #{stage}</if>
+            <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+            <if test="chapter != null and chapter != ''">and chapter like concat('%',#{chapter},'%')</if>
+        </where>
+    </select>
+</mapper>

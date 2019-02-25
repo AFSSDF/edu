@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.edu.mapper.RoomMapper">
+    <insert id="insertRoom" parameterType="room">
+        insert into room(name,is_projector,gmt_create) values (#{name},
+        <choose>
+            <when test="isProjector == null">0</when>
+            <when test="isProjector != null">#{isProjector}</when>
+        </choose>
+        ,now());
+    </insert>
+
+    <update id="updateRoom" parameterType="room">
+        update room set name=#{name},is_projector=
+        <choose>
+            <when test="isProjector == null">0</when>
+            <when test="isProjector != null">#{isProjector}</when>
+        </choose>
+        ,gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteRoom" parameterType="java.lang.Long">
+        delete from room where id=#{id}
+    </delete>
+
+    <select id="listRoom" resultType="Room">
+        select * from room;
+    </select>
+
+    <select id="countRoom" resultType="java.lang.Integer">
+        select count(1) from room;
+    </select>
+
+    <select id="selectRoomById" resultType="Room" parameterType="java.lang.Long">
+        select * from room where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--_meta 作为公共模版分离出去-->
+<head th:replace="_meta :: html">
+</head>
+<!--/meta 作为公共模版分离出去-->
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 职员管理 <span
+        class="c-gray en">&gt;</span> 职员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+                                              href="javascript:location.replace(location.href);" title="刷新"><i
+        class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c">
+        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
+        <form th:action="@{teacher-list.html}" method="get" style="display: inline-block">
+            <input type="text" autocomplete="off" th:value="${teacherCondition.name}" name="name" placeholder="职员姓名"
+                   style="width:250px" class="input-text">
+            <input type="text" autocomplete="off" th:value="${teacherCondition.email}" name="email" placeholder="职员邮箱"
+                   style="width:250px" class="input-text">
+            <span class="select-box inline">
+            <select name="isDelete" class="select">
+                <option th:selected="${teacherCondition.isDelete == null}" value="">所有</option>
+                <option th:selected="${teacherCondition.isDelete!=null&&teacherCondition.isDelete==false}"
+                        value="0">在职</option>
+                <option th:selected="${teacherCondition.isDelete}" value="1">离职</option>
+            </select>
+		</span>
+            <button name="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查找
+            </button>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius disabled"><i
+                    class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            <a class="btn btn-primary radius"
+               onclick="layer_show('职员添加','teacher-add.html','',300)"
+               href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>职员添加</a>
+        </span>
+        <span class="r">共有数据：<strong th:text="${list.size()}"></strong> 条</span></div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th width="40"><input type="checkbox" name="" value=""></th>
+                <th width="70">Id</th>
+                <th width="70">姓名</th>
+                <th>邮箱</th>
+                <th>是否离职</th>
+                <th>更新时间</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="teacher,iterStat : ${list}">
+                <td><input type="checkbox" value="" name=""></td>
+                <td th:text="${teacher.id}"></td>
+                <td th:text="${teacher.name}"></td>
+                <td th:text="${teacher.email}"></td>
+                <td th:text="${teacher.isDelete}?'是':'否'"></td>
+                <td th:text="${#dates.format(teacher.gmtModified, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#dates.format(teacher.gmtCreate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td class="f-14 td-manage">
+                    <a style="text-decoration:none" class="ml-5"
+                       th:onclick="|layer_show('职员编辑','teacher-modify.html?id=${teacher.id}','',300)|" href="javascript:;" title="编辑">
+                        <i class="Hui-iconfont">&#xe6df;</i>
+                    </a>
+                    <a style="text-decoration:none" class="ml-5" th:onclick="|teacher_del(this,${teacher.id})|"
+                       href="javascript:;"
+                       title="删除">
+                        <i class="Hui-iconfont">&#xe6e2;</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<div th:replace="_footer :: html"></div>
+<!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $('.table-sort').dataTable();
+
+    /*资讯-删除*/
+    function teacher_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            $.ajax({
+                type: 'get',
+                url: 'delete-teacher.html?id=' + id,
+                dataType: 'json',
+                success: function (data) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {icon: 1, time: 1000});
+                },
+                error: function (data) {
+                    console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+</body>
+</html>

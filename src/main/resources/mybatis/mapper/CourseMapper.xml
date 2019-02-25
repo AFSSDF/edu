@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.edu.mapper.CourseMapper">
+    <insert id="insertCourse" parameterType="course">
+        insert into course(clazz_id,room_id,curriculum_id,teacher_id,begin,period,gmt_create)
+        values (#{clazzId},#{roomId},#{curriculumId},#{teacherId},#{begin},#{period},now());
+    </insert>
+
+    <update id="updateCourse" parameterType="course">
+        update course set clazz_id=#{clazzId},room_id=#{roomId},curriculum_id=#{curriculumId},teacher_id=#{teacherId},begin=#{begin},period=#{period},gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteCourse" parameterType="java.lang.Long">
+        delete from course where id=#{id}
+    </delete>
+
+    <select id="listCourse" resultType="course">
+        select * from course;
+    </select>
+
+    <select id="countCourse" resultType="java.lang.Integer">
+        select count(1) from course;
+    </select>
+
+    <select id="selectCourseById" resultType="course" parameterType="java.lang.Long">
+        select * from course where id=#{id}
+    </select>
+
+    <select id="listCourseByCondition" parameterType="com.bdqn.edu.condition.CourseCondition"
+            resultMap="courseResultMap">
+        select clazz.`name` clazz_name,curriculum.`name` curriculum_name,curriculum.chapter curriculum_chapter,
+        curriculum.`hour` curriculum_hour,room.`name` room_name,
+        teacher.`name` teacher_name,course.*
+        from course,clazz,curriculum,room,teacher
+        where course.clazz_id=clazz.id
+                    and course.curriculum_id=curriculum.id
+                    and course.room_id=room.id
+                    and course.teacher_id=teacher.id
+        <if test="teacherName != null and teacherName != ''">and teacher.name like concat('%',#{teacherName},'%')</if>
+        <if test="clazzName != null and clazzName != ''">and clazz.name like concat('%',#{clazzName},'%')</if>
+        <if test="curriculumName != null and curriculumName != ''">and curriculum.name like concat('%',#{curriculumName},'%')</if>
+        <if test="begin != null">and course.begin <![CDATA[ >= ]]> #{begin}</if>
+        <if test="end != null">and course.begin <![CDATA[ <= ]]> #{end}</if>
+        order by course.begin asc
+    </select>
+
+    <resultMap id="courseResultMap" type="courseResultMap">
+        <id property="id" column="id" />
+        <result property="begin" column="begin"/>
+        <result property="period" column="period"/>
+        <association property="clazz" javaType="clazz">
+            <id property="id" column="clazz_id"/>
+            <result property="name" column="clazz_name"/>
+        </association>
+        <association property="room" javaType="room">
+            <id property="id" column="room_id"/>
+            <result property="name" column="room_name"/>
+        </association>
+        <association property="curriculum" javaType="curriculum">
+            <id property="id" column="curriculum_id"/>
+            <result property="name" column="curriculum_name"/>
+            <result property="chapter" column="curriculum_chapter"/>
+            <result property="hour" column="curriculum_hour"/>
+        </association>
+        <association property="teacher" javaType="teacher">
+            <id property="id" column="teacher_id"/>
+            <result property="name" column="teacher_name"/>
+        </association>
+    </resultMap>
+</mapper>

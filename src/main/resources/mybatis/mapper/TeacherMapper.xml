@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.edu.mapper.TeacherMapper">
+    <insert id="insertTeacher" parameterType="teacher">
+        insert into teacher(name,email,is_delete,gmt_create) values (#{name},#{email},
+        <choose>
+            <when test="isDelete == null">0</when>
+            <when test="isDelete != null">#{isDelete}</when>
+        </choose>
+        ,now());
+    </insert>
+
+    <update id="updateTeacher" parameterType="teacher">
+        update teacher set name=#{name},email=#{email},is_delete=
+        <choose>
+            <when test="isDelete == null">0</when>
+            <when test="isDelete != null">#{isDelete}</when>
+        </choose>
+        ,gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteTeacher" parameterType="java.lang.Long">
+        delete from teacher where id=#{id}
+    </delete>
+
+    <select id="listTeacher" resultType="teacher">
+        select * from teacher;
+    </select>
+
+    <select id="countTeacher" resultType="java.lang.Integer">
+        select count(1) from teacher;
+    </select>
+
+    <select id="selectTeacherById" resultType="teacher" parameterType="java.lang.Long">
+        select * from teacher where id=#{id}
+    </select>
+    <select id="listTeacherByCondition" parameterType="com.bdqn.edu.condition.TeacherCondition" resultType="teacher">
+        select * from teacher
+        <where>
+            <if test="isDelete != null and isDelete != ''or isDelete == 0">is_delete = #{isDelete}</if>
+            <if test="name != null and name != ''">name like concat('%',#{name},'%')</if>
+            <if test="email != null and email != ''">email like concat('%',#{email},'%')</if>
+        </where>
+    </select>
+</mapper>

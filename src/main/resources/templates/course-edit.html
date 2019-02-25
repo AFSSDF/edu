@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--_meta 作为公共模版分离出去-->
+<head th:replace="_meta :: html">
+</head>
+<!--/meta 作为公共模版分离出去-->
+<body>
+<article class="page-container">
+    <form th:action="${opt}?'course-add-save.html':'course-modify-save.html'" method="post"
+          class="form form-horizontal" id="form-course-edit">
+        <input value="" th:value="${opt}?'':${course.id}" name="id" style="display: none;">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>教室：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                    <select name="roomId" id="roomId" class="select" onchange="loadIsProjector()">
+                        <option value="">请选择</option>
+                        <option th:each="room:${roomList}" th:data-isProjector="${room.isProjector}?1:0"
+                                th:value="${room.id}" th:text="${room.name}"
+                                th:selected="${room.id eq course.roomId}"></option>
+                    </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>班级：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                    <select name="clazzId" id="clazzId" class="select">
+                        <option value="">请选择</option>
+                        <option th:each="clazz:${clazzList}" th:data-stage="${clazz.stage}" th:value="${clazz.id}"
+                                th:text="${clazz.name}" th:selected="${clazz.id eq course.clazzId}"></option>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>章节名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="hidden" th:value="${course.curriculumId}" class="input-text" value="" readonly
+                       onclick="show_modal()" autocomplete="off"
+                       id="curriculumId"
+                       name="curriculumId">
+                <input type="text" class="input-text" value="" readonly onclick="show_modal()" autocomplete="off"
+                       placeholder=""
+                       id="curriculumModal"
+                       name="curriculumModal">
+            </div>
+        </div>
+
+        <!-- model=========================================================================================== -->
+        <div id="modal-demo" class="modal modal-lg fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h3 class="modal-title">对话框标题</h3>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>阶段：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <span class="select-box">
+                                    <select name="stage" id="stage" disabled="disabled" class="select">
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <span class="select-box">
+                                    <select name="curriculumName" id="curriculumName" onchange="loadCurriculumChapter()"
+                                            class="select">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>章节：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                       <span class="select-box">
+                                           <select name="curriculumChapter" id="curriculumChapter" class="select">
+                                               <option value="">请选择</option>
+                                           </select>
+                                       </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" onclick="exit_modal()">确定</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- model=========================================================================================== -->
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>上课时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input th:value="${#dates.format(course.begin,'yyyy-MM-dd')}" type="text" name="begin"
+                       autocomplete="off"
+                       onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd'})" id="datemin"
+                       class="input-text Wdate" style="width:180px;">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>时段：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                    <select name="period" class="select">
+                        <option th:selected="${'' eq course.period}" value="">请选择</option>
+                        <option th:selected="${'上午' eq course.period}" value="上午">上午</option>
+                        <option th:selected="${'下午' eq course.period}" value="下午">下午</option>
+                    </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>教师：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                    <select name="teacherId" class="select">
+                        <option value="">请选择</option>
+                        <option th:each="teacher:${teacherList}" th:value="${teacher.id}"
+                                th:text="${teacher.name}" th:selected="${teacher.id eq course.teacherId}"></option>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button class="btn btn-primary radius" type="submit">
+                    <i class="Hui-iconfont"> &#xe632;</i> 保存
+                </button>
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;关闭&nbsp;&nbsp;
+                </button>
+                <span id="isProjector" class="c-danger" style="display: none;"><span class="c-red">*</span>&nbsp;该教室没有投影仪</span>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--<script id="editor" type="text/plain" style="width:100%;height:400px;"></script>-->
+<!--_footer 作为公共模版分离出去-->
+<div th:replace="_footer :: html"></div>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="lib/ueditor/1.4.3/ueditor.all.min.js"></script>
+<script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    var stage = null;
+
+    function show_modal() {
+        stage = $("#clazzId option:selected").attr('data-stage');
+        if (stage == null || stage == '') {
+            layer.msg('请先选择班级', {icon: 5, time: 1000});
+        } else {
+            load_modal();
+            $('#modal-demo').modal('show');
+        }
+    }
+
+    window.onload = function () {
+        var curriculumId = $("#curriculumId").val();
+        if (curriculumId != null && curriculumId != '') {
+            $.getJSON('curriculum/' + curriculumId, function (data) {
+                $('#curriculumModal').val(data.chapter);
+            })
+        }
+    }
+
+    function exit_modal() {
+        var curriculumChapter = $("#curriculumChapter option:selected").text();
+        var curriculumId = $("#curriculumChapter").val();
+        if (curriculumId != null && curriculumId != '') {
+            $('#curriculumModal').val(curriculumChapter);
+            $('#curriculumId').val(curriculumId);
+        }
+        $('#modal-demo').modal('hide');
+    }
+
+    function load_modal() {
+        var curriculumId = $("#curriculumId").val();
+        $("#stage").html("<option value=''>" + stage + "</option>");
+        $("#stage").css("backgroundColor", "#ccc").parent().css("backgroundColor", "#ccc");
+        // 加载课程
+        loadCurriculumName();
+        if (curriculumId != null && curriculumId != '') {
+            $.getJSON('curriculum/' + curriculumId, function (data) {
+                // 选择课程
+                $("#curriculumName>option[value='" + data.name + "']").selected();
+                // 加载章节
+                loadCurriculumChapter()
+                // 选择章节
+                $("#curriculumChapter>option[value='" + curriculumId + "']").selected();
+            })
+        }
+    }
+
+    function loadCurriculumName() {
+        // 关闭异步请求
+        $.ajaxSettings.async = false
+        $.getJSON("curriculumList?model=name", {stage: stage}, function (data) {
+            $("#curriculumName").html("<option value=''>请选择</option>");
+            $.each(data, function (index, item) {
+                $("#curriculumName").append("<option value='" + item.name + "'>" + item.name + "</option>")
+            })
+        })
+    }
+
+
+    function loadCurriculumChapter() {
+        // 关闭异步请求
+        $.ajaxSettings.async = false
+        var stage = $("#clazzId option:selected").attr('data-stage')
+        var name = $("#curriculumName").val();
+        $("#curriculumChapter").html("<option value=''>请选择</option>");
+        if (name != null && name != '') {
+            $.getJSON("curriculumList", {stage: stage, name: name}, function (data) {
+                $.each(data, function (index, item) {
+                    $("#curriculumChapter").append("<option value='" + item.id + "'>" + item.chapter + "</option>")
+                })
+            })
+        }
+    }
+
+
+    function loadIsProjector() {
+        var isProjector = $('#roomId option:selected').attr('data-isProjector');
+        if (isProjector == 0) {
+            $('#isProjector').show();
+        } else {
+            $('#isProjector').hide();
+        }
+    }
+
+    $(function () {
+
+        var msg = [[${msg}]];
+        if (msg != null) {
+            layer.msg(msg, {icon: 1, time: 1000});
+        }
+
+        // loadCurriculumName();
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        //表单验证
+        $("#form-course-edit").validate({
+            rules: {
+                roomId: {
+                    required: true,
+                },
+                clazzId: {
+                    required: true,
+                },
+                curriculumModal: {
+                    required: true,
+                },
+                curriculumId: {
+                    required: true,
+                },
+                begin: {
+                    required: true,
+                },
+                period: {
+                    required: true,
+                },
+                teacherId: {
+                    required: true,
+                },
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
