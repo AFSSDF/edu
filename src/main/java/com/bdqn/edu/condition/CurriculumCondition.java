@@ -16,6 +16,8 @@ public class CurriculumCondition {
 
     private String stage;
 
+    private String model;
+
     public String getChapter() {
         return chapter;
     }
@@ -38,6 +40,14 @@ public class CurriculumCondition {
 
     public void setStage(String stage) {
         this.stage = stage;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }
 

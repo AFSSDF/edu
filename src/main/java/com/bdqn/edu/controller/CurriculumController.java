@@ -33,10 +33,10 @@ public class CurriculumController {
 
     @GetMapping("/curriculum-list.html")
     public String curriculumList(Model model, CurriculumCondition curriculumCondition) {
-        if (curriculumCondition==null)
-            curriculumCondition=new CurriculumCondition();
+        if (curriculumCondition == null)
+            curriculumCondition = new CurriculumCondition();
         model.addAttribute("list", curriculumService.findCurriculumListByCondition(curriculumCondition));
-        model.addAttribute("curriculumCondition",curriculumCondition);
+        model.addAttribute("curriculumCondition", curriculumCondition);
         return "curriculum-list";
     }
 
@@ -89,13 +89,13 @@ public class CurriculumController {
 
     @ResponseBody
     @GetMapping("/curriculumList")
-    public Object curriculumList(CurriculumCondition curriculumCondition){
+    public Object curriculumList(CurriculumCondition curriculumCondition) {
         return curriculumService.findCurriculumListByCondition(curriculumCondition);
     }
 
     @ResponseBody
     @GetMapping("/curriculum/{id}")
-    public Object curriculum(@PathVariable Long id){
+    public Object curriculum(@PathVariable Long id) {
         return curriculumService.findCurriculumById(id);
     }
 }

@@ -33,6 +33,9 @@ spring:
   # JPA
   jpa:
     show-sql: true
+  # 配置 redis
+  redis:
+    host: 192.168.8.221
 # mybatis 配置
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

@@ -4,7 +4,12 @@ import com.bdqn.edu.condition.ClazzCondition;
 import com.bdqn.edu.entity.Clazz;
 import com.bdqn.edu.mapper.ClazzMapper;
 import com.bdqn.edu.service.ClazzService;
+import com.sun.mail.imap.protocol.ID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +22,7 @@ import java.util.List;
  * @author Li
  * @since 2019-02-19
  */
+@CacheConfig(cacheNames = "clazz")
 @Service
 public class ClazzServiceImpl implements ClazzService {
 

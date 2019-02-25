@@ -18,4 +18,11 @@ public class ClazzCondition {
     public void setStage(String stage) {
         this.stage = stage;
     }
+
+    @Override
+    public String toString() {
+        return "ClazzCondition{" +
+                "stage='" + stage + '\'' +
+                '}';
+    }
 }

@@ -216,6 +216,7 @@ public class ExcelUtil {
                 tempCourseList = new ArrayList<>();
                 tempCourseList.add(new CourseResultMap());
             }
+            // 添加课程数据
             for (int k = 0; k < dateList.size(); k++) {
                 for (int j = 0; j < tempCourseList.size(); j++) {
                     HSSFCell dataCell1 = dataRow.createCell(k * 3 + 1);
